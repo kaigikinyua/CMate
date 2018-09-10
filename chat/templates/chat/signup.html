@@ -1,0 +1,35 @@
+<html>
+  <heaf>
+    <title>Signup</title>
+  </head>
+  <body>
+    {% if error_message %}
+    <!--error messages should be formated to red italic and bold positioned at the center-->
+      <center><b><i>{{error_message}}</i></b><center>
+    {%endif%}
+    <form method="POST" action="{% url 'signup'%}">
+      {% csrf_token %}
+      <center>
+        <table>
+          <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username"/></td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td><input type="text" name="email"/></td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td><input type="password" name="password"/></td>
+          </tr>
+          <tr>
+            <td>Confirm Password</td>
+            <td><input type="password" name="cpassword"/></td>
+          </tr>
+        </table>
+        <input type="submit" name="signup" value="Submit"/>
+      </center>
+    </form>
+  </body>
+</html>

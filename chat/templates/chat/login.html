@@ -1,0 +1,31 @@
+<html>
+  <heaf>
+    <title>Login</title>
+  </head>
+  <body>
+    <form method="POST" action="{% url 'login' %}">
+      {% csrf_token %}
+      <center>
+        <table>
+          <tr>
+            <td>Username:</td>
+            <td><input type="text" name="username"/></td>
+          </tr>
+          <tr>
+            <td>Email:</td>
+            <td><input type="text" name="email"/></td>
+          </tr>
+          <tr>
+            <td>Password</td>
+            <td><input type="password" name="password"/></td>
+          </tr>
+        </table>
+        <input type="submit" name="Login" value="Login"/>
+        {% if error_message%}
+          <p>
+            <i>{{error_message}}</i>
+          </p>
+        {% endif %}
+      </center>
+    </form>
+</html>
