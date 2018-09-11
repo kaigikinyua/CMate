@@ -14,10 +14,13 @@ def login(request):
             if len(db)!=1:
                 return render(request,'chat/login.html',{'error_message':"Incorrect Credentials"})
             else:
-                return render(request,'chat/user.html',{'greetings':"Hae "+user.cleaned_data['username']})
+                context={'greetings':"Hae "+user.cleaned_data['username'],'suggested':"k@gmail.com"}
+                return render(request,'chat/user.html',context)
         else:
             message=user.errors
             return render(request,'chat/login.html',{'error_message':message})
+    else:
+         return render(request,'chat/login.html',{})
 def signup(request):
     if request.method=="POST":
         #check if form is valid
@@ -40,3 +43,7 @@ def signup(request):
         else:
             message=user.errors
             return render(request,'chat/signup.html',{'error_message':message})
+    else:
+        return render(request,'chat/signup.html',{})
+def addFriend(request,friend):
+    return render(request,'chat/user.html')

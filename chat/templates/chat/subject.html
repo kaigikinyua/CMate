@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title>Subject</title>
+  </head>
+  <body>
+    <form method="POST">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td>Subject Title</td>
+          <td><input type="text" placeholder="Subject Title...."/></td>
+        </tr>
+        <tr>
+          <td>Username</td>
+          <td><input type="text" placeholder="Username...." name="username"/></td>
+        </tr>
+        <tr>
+          <td>
+            <input type="radio" name="privacy" value="Public"/>
+            <input type="radio" name="privacy" value="Private">
+          </td>
+        </tr>
+      </table>
+    </form>
+  </body>
+</html>
