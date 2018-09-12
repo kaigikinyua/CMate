@@ -1,9 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import UserDetails
 from .forms import RegistrationForm,LoginForm
 # Create your views here.
 def home(request):
     return render(request,'chat/index.html')
+def user(request,Email):
+    return render(request,'chat/user.html',{'email':Email})
 def login(request):
     if request.method=="POST":
         user=LoginForm(request.POST)
@@ -15,7 +17,8 @@ def login(request):
                 return render(request,'chat/login.html',{'error_message':"Incorrect Credentials"})
             else:
                 context={'greetings':"Hae "+user.cleaned_data['username'],'suggested':"k@gmail.com"}
-                return render(request,'chat/user.html',context)
+                #return render(request,'chat/user.html',context)
+                return redirect('user',Email=e)
         else:
             message=user.errors
             return render(request,'chat/login.html',{'error_message':message})
@@ -45,5 +48,5 @@ def signup(request):
             return render(request,'chat/signup.html',{'error_message':message})
     else:
         return render(request,'chat/signup.html',{})
-def addFriend(request,friend):
-    return render(request,'chat/user.html')
+def subject(request):
+    return render(request,'chat/subject.html')
