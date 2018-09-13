@@ -10,3 +10,5 @@ class LoginForm(forms.Form):
     username=forms.CharField(label="username",max_length=30)
     email=forms.EmailField(label="email")
     password=forms.CharField(label="password",widget=forms.PasswordInput())
+class MyProfile(forms.Form):
+    profile=forms.ImageField()

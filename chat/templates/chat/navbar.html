@@ -6,7 +6,16 @@
   <body>
     <table border=0px>
       <tr>
-        <td><!--profile--></td>
+        <td>
+          <!--profile-->
+          {% if profile == None %}
+            <img width="100px" height="100px"src="images/pic.jpg"/>
+            <form method="POST" action="profilepic">
+            <input type="file" name="profile"/>
+            <input type="submit" value="submit" name="submit"/>
+          </form>
+          {% endif %}
+        </td>
         <td></td>
       </tr>
     </table>

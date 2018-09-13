@@ -50,3 +50,12 @@ def signup(request):
         return render(request,'chat/signup.html',{})
 def subject(request):
     return render(request,'chat/subject.html')
+def profile(request):
+    if request.method=="POST":
+        profile=MyProfile(request.POST,request.FILES)
+        if profile.is_valid():
+            p=Profile()
+            p.picture=MyProfile.cleaned_data['profilepic']
+            p.save()
+        else:
+            return render(request,'chat/index.html')

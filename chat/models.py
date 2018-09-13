@@ -1,5 +1,8 @@
 from django.db import models
+from datetime import datetime
 # Create your models here.
+class Profile(models.Model):
+    profile=models.ImageField()
 class UserDetails(models.Model):
     username=models.CharField(max_length=30)
     email=models.EmailField()
@@ -13,3 +16,10 @@ class ChatStats(models.Model):
     Admin=models.CharField(max_length=30)
     def __str__(self):
         return self.Topic+" - "+self.Number
+class Chats(models.Model):
+    Sender=models.CharField(max_length=50)
+    Receiver=models.CharField(max_length=50)
+    Message=models.CharField(max_length=250)
+    Time=models.DateTimeField(default=datetime.now,blank=True)
+    def __str__(self):
+        return self.Sender+' - '+self.Receiver+' - '+self.Message+' - '+self.Time
