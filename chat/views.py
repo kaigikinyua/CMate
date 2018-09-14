@@ -5,17 +5,16 @@ from .forms import RegistrationForm,LoginForm,MyProfile
 def home(request):
     return render(request,'chat/index.html')
 def user(request):
-    Email="k@gmail.com"
     if request.method=="POST":
-        try:
-            p=request.POST['profile']
-            p=Profile(profile=p)
-            p.save()
-            error="Image Saved"
+        profile=MyProfile(request.POST,request.FILES)
+        if profile.is_valid():
+            image=request.FILES['profile']
+            i=Profile(profile=image,useremail=Email)
+            i.save()
+        else:
+            error=profile.errors
             return render(request,'chat/navbar.html',{'error_message':error})
-        except:
-            error="Error in saving youe profile"
-            return render(request,'chat/navbar.html',{'error_message':error})
+
     return render(request,'chat/user.html',{'email':Email})
 def login(request):
     if request.method=="POST":
@@ -27,8 +26,8 @@ def login(request):
             if len(db)!=1:
                 return render(request,'chat/login.html',{'error_message':"Incorrect Credentials"})
             else:
-                context={'greetings':"Hae "+user.cleaned_data['username'],'suggested':"k@gmail.com"}
-                #return render(request,'chat/user.html',context)
+                context={'greetings':"Hae "+user.cleaned_data['username'],'email':e}
+                return render(request,'chat/navbar.html',context)
                 return redirect('user')#,Email=e)
         else:
             message=user.errors
