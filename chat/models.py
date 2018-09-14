@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 # Create your models here.
 class Profile(models.Model):
-    profile=models.ImageField()
+    profile=models.ImageField(upload_to='Profile')
 class UserDetails(models.Model):
     username=models.CharField(max_length=30)
     email=models.EmailField()

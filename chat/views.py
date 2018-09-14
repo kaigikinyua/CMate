@@ -1,10 +1,21 @@
 from django.shortcuts import render,redirect
-from .models import UserDetails
-from .forms import RegistrationForm,LoginForm
+from .models import UserDetails,Profile
+from .forms import RegistrationForm,LoginForm,MyProfile
 # Create your views here.
 def home(request):
     return render(request,'chat/index.html')
-def user(request,Email):
+def user(request):
+    Email="k@gmail.com"
+    if request.method=="POST":
+        try:
+            p=request.POST['profile']
+            p=Profile(profile=p)
+            p.save()
+            error="Image Saved"
+            return render(request,'chat/navbar.html',{'error_message':error})
+        except:
+            error="Error in saving youe profile"
+            return render(request,'chat/navbar.html',{'error_message':error})
     return render(request,'chat/user.html',{'email':Email})
 def login(request):
     if request.method=="POST":
@@ -18,7 +29,7 @@ def login(request):
             else:
                 context={'greetings':"Hae "+user.cleaned_data['username'],'suggested':"k@gmail.com"}
                 #return render(request,'chat/user.html',context)
-                return redirect('user',Email=e)
+                return redirect('user')#,Email=e)
         else:
             message=user.errors
             return render(request,'chat/login.html',{'error_message':message})
@@ -50,12 +61,3 @@ def signup(request):
         return render(request,'chat/signup.html',{})
 def subject(request):
     return render(request,'chat/subject.html')
-def profile(request):
-    if request.method=="POST":
-        profile=MyProfile(request.POST,request.FILES)
-        if profile.is_valid():
-            p=Profile()
-            p.picture=MyProfile.cleaned_data['profilepic']
-            p.save()
-        else:
-            return render(request,'chat/index.html')
