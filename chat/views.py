@@ -9,12 +9,13 @@ def user(request):
         profile=MyProfile(request.POST,request.FILES)
         if profile.is_valid():
             image=request.FILES['profile']
-            i=Profile(profile=image,useremail=Email)
+            i=Profile(profile=image,useremail="k@gmail.com")
             i.save()
+            pUrl=Profile.objects.get(useremail='k@gmail.com')
+            return render(request,'chat/navbar.html',{'Picture':pUrl})
         else:
             error=profile.errors
             return render(request,'chat/navbar.html',{'error_message':error})
-
     return render(request,'chat/user.html',{'email':Email})
 def login(request):
     if request.method=="POST":

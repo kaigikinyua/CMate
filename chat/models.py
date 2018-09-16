@@ -3,7 +3,7 @@ from datetime import datetime
 from django.core.files.storage import FileSystemStorage
 # Create your models here.
 class Profile(models.Model):
-    profile=models.ImageField(upload_to='Profile/')
+    profile=models.ImageField()
     useremail=models.EmailField()
     def __str__(self):
         return self.useremail
