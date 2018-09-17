@@ -4,18 +4,18 @@ from .forms import RegistrationForm,LoginForm,MyProfile
 # Create your views here.
 def home(request):
     return render(request,'chat/index.html')
-def user(request):
+def user(request,Email):
     if request.method=="POST":
         profile=MyProfile(request.POST,request.FILES)
         if profile.is_valid():
             image=request.FILES['profile']
-            i=Profile(profile=image,useremail="k@gmail.com")
+            i=Profile(profile=image,useremail=Email)
             i.save()
             pUrl=Profile.objects.get(useremail='k@gmail.com')
-            return render(request,'chat/navbar.html',{'Picture':pUrl})
+            return render(request,'chat/user.html',{'Picture':pUrl})
         else:
             error=profile.errors
-            return render(request,'chat/navbar.html',{'error_message':error})
+            return render(request,'chat/index.html',{'error_message':error})
     return render(request,'chat/user.html',{'email':Email})
 def login(request):
     if request.method=="POST":
@@ -28,8 +28,8 @@ def login(request):
                 return render(request,'chat/login.html',{'error_message':"Incorrect Credentials"})
             else:
                 context={'greetings':"Hae "+user.cleaned_data['username'],'email':e}
-                return render(request,'chat/navbar.html',context)
-                return redirect('user')#,Email=e)
+                #return render(request,'chat/.html',context)
+                return redirect('user',Email=e)
         else:
             message=user.errors
             return render(request,'chat/login.html',{'error_message':message})

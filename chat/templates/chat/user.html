@@ -1,26 +1,32 @@
 <html>
   <head>
     <title>CMate</title>
+     {% load staticfiles %}
   </head>
   <body>
-    <table border="0px">
+    <table>
       <tr>
-        <td colspan="3">
-          <!--navbar-->
-          {% include 'chat/navbar.html'%}
+        <td>
         </td>
       </tr>
       <tr>
         <td>
           <!--trending-->
+          {% if error %}
+            {{error}}
+          {% endif %}
           <b><h3><i>Trending</i></h3></b>
-          <div class="template">
-            {% include 'chat/subject.html'%}
-          </div>
+          <form method='POST' enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type='file' name='profile' value='Picture'/>
+            <input type='submit' name='Profile' value='Submit' />
+          </form>
         </td>
+          <img src='{{Picture.profile.path}}' width='100px' height='100px'/>
+          {{Picture.profile.path}}
+          <!--0724 884 820-->
         <td>
           <!--Chats and messages-->
-          {% include 'chat/chatpage.html'%}
         </td>
         <td>
           <!--friends---->
